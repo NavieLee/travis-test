@@ -10,5 +10,7 @@ before_install:
   - docker pull kevinlad/ros-nav-ubuntu-64
 
 install:
-  - docker run -dit --name rrts_test kevinlad/ros-nav-ubuntu-64
-  - docker exec rrts_test bash rrts_build_test.sh
+  - docker run -dit --name rrts_test -v $TRAVIS_BUILD_DIR/:/srv/src/rrts/ kevinlad/ros-nav-ubuntu-64
+  - docker exec -it rrts_test bash
+  - cd /srv/
+  - catkin_make messages_generate_messages
